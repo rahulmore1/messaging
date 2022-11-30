@@ -9,7 +9,7 @@ services:
     - ./config/zookeeper-1/zookeeper.properties:/kafka/config/zookeeper.properties
     - ./data/zookeeper-1/:/tmp/zookeeper/
     networks:
-    - kafka
+    - codebloxnet
   kafka-1:
     container_name: kafka-1
     environment:
@@ -23,7 +23,7 @@ services:
     - ./config/kafka-1/server.properties:/kafka/config/server.properties
     - ./data/kafka-1/:/tmp/kafka-logs/
     networks:
-    - kafka
+    - codebloxnet
 networks: 
   kafka:
-    name: kafka
+    name: codebloxnet
