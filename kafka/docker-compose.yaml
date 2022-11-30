@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  zookeeper-1:
+    container_name: zookeeper-1
+    image: codeblox/zookeeper:2.7.0
+    build:
+      context: zookeeper
+    volumes:
+    - ./config/zookeeper-1/zookeeper.properties:/kafka/config/zookeeper.properties
+    - ./data/zookeeper-1/:/tmp/zookeeper/
+    networks:
+    - kafka
+  kafka-1:
+    container_name: kafka-1
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    image: codeblox/kafka:2.7.0
+    build: 
+      context: .
+    volumes:
+    - ./config/kafka-1/server.properties:/kafka/config/server.properties
+    - ./data/kafka-1/:/tmp/kafka-logs/
+    networks:
+    - kafka
+networks: 
+  kafka:
+    name: kafka
